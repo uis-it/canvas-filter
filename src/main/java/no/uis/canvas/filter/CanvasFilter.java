@@ -10,8 +10,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import no.uis.portal.feidelogin.web.Constants;
-
 public class CanvasFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
@@ -20,9 +18,10 @@ public class CanvasFilter implements Filter {
 		if (userId != null) {
 			if (request instanceof HttpServletRequest) {
 				HttpServletRequest httpReq = (HttpServletRequest) request;
-				httpReq.getSession(true).setAttribute(Constants.FEIDE_USER_ID_ATTRIBUTE, userId);
+				httpReq.getSession(true).setAttribute("no.uis.portal.feidelogin.web.userid", userId);
 			}
 		}
+		chain.doFilter(request, response);
 	}
 	
 	public void init(FilterConfig filterConfig) throws ServletException {
